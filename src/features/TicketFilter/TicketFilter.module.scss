@@ -1,0 +1,30 @@
+@use "@app/styles/variables.scss" as *;
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 168px);
+  button {
+    background-color: $white-color;
+    font-size: 12px;
+    height: 50px;
+  }
+  .action {
+    border: 1px solid #000000;
+    background-color: $blue-color;
+    color: $white-color;
+  }
+}
+
+.right {
+  border: 1px solid $grey-color;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.center {
+  border: 1px solid $grey-color;
+}
+.left {
+  border: 1px solid $grey-color;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}

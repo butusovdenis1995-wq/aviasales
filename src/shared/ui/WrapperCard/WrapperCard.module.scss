@@ -1,0 +1,6 @@
+@use "@app/styles/variables.scss" as *;
+
+.wrapperCard {
+  border-radius: $border-radius;
+  box-shadow: 0 0 8px rgb(212, 214, 214);
+}

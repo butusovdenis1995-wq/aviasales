@@ -1,0 +1,24 @@
+@use "@app/styles/variables.scss" as *;
+
+.ticketSection {
+  margin: 20px 0;
+  button {
+    width: 502px;
+    height: 50px;
+    border-radius: $border-radius;
+    background-color: $blue-color;
+    border: none;
+    color: $white-color;
+  }
+  button:active {
+    width: 498px;
+    height: 48px;
+    transform: translate(2px);
+  }
+  .spin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 35px auto;
+  }
+}

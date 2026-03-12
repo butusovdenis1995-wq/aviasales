@@ -1,0 +1,41 @@
+@use "@app/styles/variables.scss" as *;
+
+.container {
+  box-sizing: border-box;
+  background-color: $white-color;
+  width: 230px;
+  height: 250px;
+  padding: 20px;
+  position: sticky;
+  top: 15px;
+
+  input {
+    width: 20px;
+    height: 20px;
+    margin: 0 10px 0 0;
+    background-color: $white-color;
+  }
+
+  p {
+    margin: 0;
+    font-size: 12px;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  gap: 20px;
+}
+
+.checkboxItem {
+  display: flex;
+  align-items: center;
+
+  label {
+    cursor: pointer;
+    user-select: none;
+    font-size: 13px;
+  }
+}

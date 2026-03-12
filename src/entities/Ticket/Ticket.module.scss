@@ -1,0 +1,37 @@
+@use "@app/styles/variables.scss" as *;
+
+.containerTicket {
+  background-color: #ffffff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: $border-radius;
+  header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    span {
+      font-size: 30px;
+      color: $blue-color;
+    }
+  }
+  main {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 40px);
+    gap: 3px;
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+  }
+}
+
+.top {
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+.bottom {
+  font-size: 14px;
+}
