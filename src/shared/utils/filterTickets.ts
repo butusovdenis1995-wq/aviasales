@@ -4,7 +4,7 @@ import { Ticket } from "@features/ListTicket/api/types";
 export function filterTickets(tickets: Ticket[], checkbox: TransfersState) {
   const filterTicket: Ticket[] = [];
 
-  if (checkbox.all) {
+  if (checkbox.all || Object.values(checkbox).every((item) => !item)) {
     return [...tickets];
   }
 

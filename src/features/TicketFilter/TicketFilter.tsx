@@ -3,31 +3,29 @@ import type { RootState } from "@/shared/config/store";
 import styles from "./TicketFilter.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { changeFilterTicket } from "./model/slice";
+import { ButtonSorted } from "@features/TicketFilter/model/types";
 
 function TicketFilter() {
   const dispatch = useDispatch();
   const buttonFilter = useSelector((state: RootState) => state.filterTicket);
 
+  const buttonSorted: ButtonSorted[] = [
+    { position: "left", type: "cheap", label: "САМЫЙ ДЕШЕВЫЙ" },
+    { position: "center", type: "fast", label: "САМЫЙ БЫСТРЫЙ" },
+    { position: "right", type: "optimal", label: "ОПТИМАЛЬНЫЙ" },
+  ];
+
   return (
     <WrapperCard className={styles.container}>
-      <button
-        className={`${styles.left} ${buttonFilter.cheap ? styles.action : ""}`}
-        onClick={() => dispatch(changeFilterTicket("cheap"))}
-      >
-        САМЫЙ ДЕШЕВЫЙ
-      </button>
-      <button
-        className={`${styles.center} ${buttonFilter.fast ? styles.action : ""}`}
-        onClick={() => dispatch(changeFilterTicket("fast"))}
-      >
-        САМЫЙ БЫСТРЫЙ
-      </button>
-      <button
-        className={`${styles.right} ${buttonFilter.optimal ? styles.action : ""}`}
-        onClick={() => dispatch(changeFilterTicket("optimal"))}
-      >
-        ОПТИМАЛЬНЫЙ
-      </button>
+      {buttonSorted.map((button) => (
+        <button
+          key={button.type}
+          className={`${styles[button.position]} ${buttonFilter[button.type] ? styles.action : ""}`}
+          onClick={() => dispatch(changeFilterTicket(button.type))}
+        >
+          {button.label}
+        </button>
+      ))}
     </WrapperCard>
   );
 }

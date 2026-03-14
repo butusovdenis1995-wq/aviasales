@@ -6,7 +6,7 @@ interface WrapperCardProps {
 }
 
 function WrapperCard(props: WrapperCardProps) {
-  const classes = styles.wrapperCard + " " + props.className;
+  const classes = `${styles.wrapperCard} ${props.className}`;
   return <div className={classes}>{props.children}</div>;
 }
 

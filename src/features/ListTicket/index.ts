@@ -1,1 +1,1 @@
-export { default } from "./ui/ListTicket";
+export { default } from "./ListTicket";

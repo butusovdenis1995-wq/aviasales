@@ -1,15 +1,18 @@
-import WrapperCard from "@/shared/ui/WrapperCard";
+import WrapperCard from "@shared/ui/WrapperCard";
 import styles from "./Ticket.module.scss";
 import Logo from "@entities/logo/S7 Logo.png";
 import pluralize from "@shared/utils/pluralize";
 import formatMinutes from "@shared/utils/formatMinutes";
 import { format, addMinutes } from "date-fns";
+import { Ticket as TicketType } from "@features/ListTicket/api/types";
+import { TRANSPLANT_FORMS } from "./types";
 
-function Ticket({ ticket }) {
+function Ticket({ ticket }: { ticket: TicketType }) {
   const departureDate = new Date(ticket.segments[0].date);
   const arrivalDate = addMinutes(departureDate, ticket.segments[0].duration);
   const departureTime = format(departureDate, "HH:mm");
   const arrivalTime = format(arrivalDate, "HH:mm");
+
   return (
     <WrapperCard className={styles.containerTicket}>
       <header>
@@ -33,11 +36,7 @@ function Ticket({ ticket }) {
         </div>
         <div>
           <span className={styles.top}>
-            {pluralize(ticket.segments[0].stops.length, [
-              "ПЕРЕСАДКА",
-              "ПЕРЕСАДКИ",
-              "ПЕРЕСАДОК",
-            ])}
+            {pluralize(ticket.segments[0].stops.length, TRANSPLANT_FORMS)}
           </span>
           <span className={styles.bottom}>
             {ticket.segments[0].stops.join(", ")}
@@ -46,7 +45,7 @@ function Ticket({ ticket }) {
         <div>
           <span
             className={styles.top}
-          >{`${ticket.segments[0].origin}-${ticket.segments[0].destination}`}</span>
+          >{`${ticket.segments[1].origin}-${ticket.segments[1].destination}`}</span>
           <span className={styles.bottom}>
             {departureTime} - {arrivalTime}
           </span>
@@ -59,11 +58,7 @@ function Ticket({ ticket }) {
         </div>
         <div>
           <span className={styles.top}>
-            {pluralize(ticket.segments[1].stops.length, [
-              "ПЕРЕСАДКА",
-              "ПЕРЕСАДКИ",
-              "ПЕРЕСАДОК",
-            ])}
+            {pluralize(ticket.segments[1].stops.length, TRANSPLANT_FORMS)}
           </span>
           <span className={styles.bottom}>
             {ticket.segments[1].stops.join(", ")}

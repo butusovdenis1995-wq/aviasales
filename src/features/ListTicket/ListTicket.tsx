@@ -1,6 +1,6 @@
 import Ticket from "@entities/Ticket";
 import styles from "./ListTicket.module.scss";
-import { ticketApi } from "../api/ticketApiSlice";
+import { ticketApi } from "./api/ticketApiSlice";
 import type { RootState } from "@/shared/config/store";
 import { useSelector } from "react-redux";
 import { filterTickets } from "@shared/utils/filterTickets";
@@ -12,27 +12,25 @@ function ListTicket() {
   const [numberTickets, setNumberTicket] = useState(5);
   const { data: searchData } = ticketApi.useFetchSearchIdQuery();
   const {
-    data: tickets,
+    data: allTicket,
     error,
     isLoading,
-  } = ticketApi.useFetchTicketsQuery(
-    searchData?.searchId ?? "", // ! говорит TypeScript, что значение будет (благодаря skip)
-    { skip: !searchData?.searchId }, // пропускаем запрос если нет searchId
-  );
+  } = ticketApi.useFetchTicketsQuery(searchData?.searchId ?? "", {
+    skip: !searchData?.searchId,
+  });
+
   const qtyTrans = useSelector((state: RootState) => state.qtyTrans.transfer);
   const buttonFilter = useSelector((state: RootState) => state.filterTicket);
 
-  const activeFilterTicket = tickets
-    ? filterTickets(tickets.tickets, qtyTrans)
+  const activeFilterTicket = allTicket
+    ? filterTickets(allTicket, qtyTrans)
     : [];
 
   const sortedByTicket = sortedTicket(activeFilterTicket, buttonFilter);
 
   useEffect(() => {
-    if (numberTickets !== 5) {
-      setNumberTicket(5);
-    }
-  }, [qtyTrans, buttonFilter, tickets]);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [qtyTrans]);
 
   const handleShowMore = () => {
     setNumberTicket(numberTickets + 5);
