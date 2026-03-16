@@ -1,6 +1,6 @@
-import TicketFilter from "@/features/TicketFilter";
+import TicketFilter from "@/features/ListTicket/components/TicketFilter";
 import styles from "./SearchTicket.module.scss";
-import QtyTrans from "@/features/QtyTrans";
+import QtyTrans from "@/features/ListTicket/components/QtyTrans";
 import ListTicket from "@features/ListTicket";
 
 function SearchTicket() {

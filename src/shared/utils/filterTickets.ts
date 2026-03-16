@@ -1,5 +1,5 @@
-import { TransfersState } from "@features/QtyTrans/model/types";
-import { Ticket } from "@features/ListTicket/api/types";
+import { TransfersState } from "@features/ListTicket/types/types";
+import { Ticket } from "@/entities/Ticket/types/types";
 
 export function filterTickets(tickets: Ticket[], checkbox: TransfersState) {
   const filterTicket: Ticket[] = [];

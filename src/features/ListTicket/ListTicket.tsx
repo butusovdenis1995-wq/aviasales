@@ -1,15 +1,15 @@
-import Ticket from "@entities/Ticket";
+import Ticket from "@entities/Ticket/ui/Ticket";
 import styles from "./ListTicket.module.scss";
-import { ticketApi } from "./api/ticketApiSlice";
+import { ticketApi } from "../../entities/Ticket/api/ticketApiSlice";
 import type { RootState } from "@/shared/config/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { filterTickets } from "@shared/utils/filterTickets";
 import { sortedTicket } from "@shared/utils/sortedTicket";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Spin } from "antd";
+import { changePaginationCount } from "@/features/ListTicket/slice";
 
 function ListTicket() {
-  const [numberTickets, setNumberTicket] = useState(5);
   const { data: searchData } = ticketApi.useFetchSearchIdQuery();
   const {
     data: allTicket,
@@ -19,8 +19,16 @@ function ListTicket() {
     skip: !searchData?.searchId,
   });
 
-  const qtyTrans = useSelector((state: RootState) => state.qtyTrans.transfer);
-  const buttonFilter = useSelector((state: RootState) => state.filterTicket);
+  const dispatch = useDispatch();
+  const qtyTrans = useSelector(
+    (state: RootState) => state.filterTickets.transfer,
+  );
+  const buttonFilter = useSelector(
+    (state: RootState) => state.filterTickets.sorted,
+  );
+  const pagination = useSelector(
+    (state: RootState) => state.filterTickets.pagination,
+  );
 
   const activeFilterTicket = allTicket
     ? filterTickets(allTicket, qtyTrans)
@@ -30,12 +38,13 @@ function ListTicket() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [qtyTrans]);
+    dispatch(changePaginationCount(5));
+  }, [qtyTrans, buttonFilter]);
 
   const handleShowMore = () => {
-    setNumberTicket(numberTickets + 5);
+    dispatch(changePaginationCount(pagination + 5));
   };
-  const hasMore = numberTickets < sortedByTicket.length;
+  const hasMore = pagination < sortedByTicket.length;
   return (
     <div className={styles.ticketSection}>
       {isLoading && (
@@ -44,11 +53,9 @@ function ListTicket() {
         </div>
       )}
       {error && "Произошла ошибка"}
-      {sortedByTicket
-        .filter((_, index: number) => index < numberTickets)
-        .map((ticket) => (
-          <Ticket key={ticket.price} ticket={ticket} />
-        ))}
+      {sortedByTicket.slice(0, pagination).map((ticket) => (
+        <Ticket key={ticket.price} ticket={ticket} />
+      ))}
       {hasMore && (
         <button onClick={handleShowMore}>ПОКАЗАТЬ ЕЩЕ 5 БИЛЕТОВ!</button>
       )}

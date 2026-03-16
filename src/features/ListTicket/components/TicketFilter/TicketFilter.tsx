@@ -2,17 +2,19 @@ import WrapperCard from "@/shared/ui/WrapperCard";
 import type { RootState } from "@/shared/config/store";
 import styles from "./TicketFilter.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { changeFilterTicket } from "./model/slice";
-import { ButtonSorted } from "@features/TicketFilter/model/types";
+import { changeFilterTicket } from "@features/ListTicket/slice";
+import { ButtonSorted, TypeFilter } from "@features/ListTicket/types/types";
 
 function TicketFilter() {
   const dispatch = useDispatch();
-  const buttonFilter = useSelector((state: RootState) => state.filterTicket);
+  const buttonFilter = useSelector(
+    (state: RootState) => state.filterTickets.sorted,
+  );
 
   const buttonSorted: ButtonSorted[] = [
-    { position: "left", type: "cheap", label: "САМЫЙ ДЕШЕВЫЙ" },
-    { position: "center", type: "fast", label: "САМЫЙ БЫСТРЫЙ" },
-    { position: "right", type: "optimal", label: "ОПТИМАЛЬНЫЙ" },
+    { position: "left", type: TypeFilter.Cheap, label: "САМЫЙ ДЕШЕВЫЙ" },
+    { position: "center", type: TypeFilter.Fast, label: "САМЫЙ БЫСТРЫЙ" },
+    { position: "right", type: TypeFilter.Optimal, label: "ОПТИМАЛЬНЫЙ" },
   ];
 
   return (

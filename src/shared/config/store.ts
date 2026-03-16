@@ -1,12 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import qtyTransReducer from "@features/QtyTrans/model/slice";
-import FilterTicketReducer from "@features/TicketFilter/model/slice";
-import { ticketApi } from "@features/ListTicket/api/ticketApiSlice";
+import { ticketApi } from "@/entities/Ticket/api/ticketApiSlice";
+import filterTicketsReducer from "@/features/ListTicket/slice";
 
 export const store = configureStore({
   reducer: {
-    qtyTrans: qtyTransReducer,
-    filterTicket: FilterTicketReducer,
+    filterTickets: filterTicketsReducer,
     [ticketApi.reducerPath]: ticketApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

@@ -1,11 +1,12 @@
 import WrapperCard from "@shared/ui/WrapperCard";
 import styles from "./Ticket.module.scss";
-import Logo from "@entities/logo/S7 Logo.png";
+import Logo from "../../../../public/S7 Logo (1).png";
+
 import pluralize from "@shared/utils/pluralize";
 import formatMinutes from "@shared/utils/formatMinutes";
 import { format, addMinutes } from "date-fns";
-import { Ticket as TicketType } from "@features/ListTicket/api/types";
-import { TRANSPLANT_FORMS } from "./types";
+import { Ticket as TicketType } from "@/entities/Ticket/types/types";
+import { TRANSPLANT_FORMS } from "../types/types";
 
 function Ticket({ ticket }: { ticket: TicketType }) {
   const departureDate = new Date(ticket.segments[0].date);
@@ -15,11 +16,11 @@ function Ticket({ ticket }: { ticket: TicketType }) {
 
   return (
     <WrapperCard className={styles.containerTicket}>
-      <header>
+      <div className={styles.header}>
         <span>{`${ticket.price} Р`}</span>
         <img src={Logo} alt="Logo S7" />
-      </header>
-      <main>
+      </div>
+      <div className={styles.tripDetails}>
         <div>
           <span
             className={styles.top}
@@ -64,7 +65,7 @@ function Ticket({ ticket }: { ticket: TicketType }) {
             {ticket.segments[1].stops.join(", ")}
           </span>
         </div>
-      </main>
+      </div>
     </WrapperCard>
   );
 }

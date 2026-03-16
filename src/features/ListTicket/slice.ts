@@ -1,8 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { FilterState, TransferKey } from "./types";
+import {
+  FilterState,
+  TransferKey,
+  TypeFilter,
+} from "@features/ListTicket/types/types";
 
 const initialState: FilterState = {
+  pagination: 5,
   transfer: {
     all: false,
     nonstops: true,
@@ -10,9 +15,14 @@ const initialState: FilterState = {
     two: false,
     three: false,
   },
+  sorted: {
+    cheap: true,
+    fast: false,
+    optimal: false,
+  },
 };
 
-export const qtyTransSlice = createSlice({
+export const filterTicketsSlice = createSlice({
   name: "qtyTrans",
   initialState,
   reducers: {
@@ -35,7 +45,18 @@ export const qtyTransSlice = createSlice({
         state.transfer["all"] = true;
       }
     },
+    changeFilterTicket: (state, action: PayloadAction<TypeFilter>) => {
+      state.sorted.cheap = false;
+      state.sorted.fast = false;
+      state.sorted.optimal = false;
+      state.sorted[action.payload] = true;
+    },
+    changePaginationCount: (state, action: PayloadAction<number>) => {
+      const count = action.payload;
+      state.pagination = count;
+    },
   },
 });
-export const { toggleQtyTrans } = qtyTransSlice.actions;
-export default qtyTransSlice.reducer;
+export const { toggleQtyTrans, changeFilterTicket, changePaginationCount } =
+  filterTicketsSlice.actions;
+export default filterTicketsSlice.reducer;
